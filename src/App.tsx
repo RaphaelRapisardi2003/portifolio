@@ -249,7 +249,7 @@ export default function App() {
 
       {/* CORE WRAPPER */}
       <main className="max-w-4xl mx-auto px-4 sm:px-6 w-full pt-24 pb-16 flex-grow z-10 relative">
-        <div className="space-y-32">
+        <div className="space-y-16 sm:space-y-32">
           
           {/* Section 1: Hero Cover Column with Typing Simulator */}
           <section id="hero-section" className="relative pt-12 pb-6 select-none">
@@ -264,9 +264,9 @@ export default function App() {
                 </div>
                 
                 {/* Photo + Primary Display Title */}
-                <div className="flex items-center gap-5 sm:gap-7">
+                <div className="flex items-center gap-4 sm:gap-7">
                   {/* Profile photo */}
-                  <div className="shrink-0 w-32 h-32 sm:w-36 sm:h-36 rounded-full overflow-hidden ring-2 ring-rose-500/30 shadow-lg shadow-rose-950/40">
+                  <div className="shrink-0 w-24 h-24 sm:w-36 sm:h-36 rounded-full overflow-hidden ring-2 ring-rose-500/30 shadow-lg shadow-rose-950/40">
                     <img
                       src="/profile.png"
                       alt="Raphael L. Rapisardi"
@@ -275,7 +275,7 @@ export default function App() {
                   </div>
 
                   {/* Name */}
-                  <h1 className="text-5xl sm:text-6xl lg:text-7xl font-display font-medium text-zinc-100 tracking-tight leading-none">
+                  <h1 className="text-4xl sm:text-6xl lg:text-7xl font-display font-medium text-zinc-100 tracking-tight leading-none">
                     Raphael L. <br />
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-purple-400 to-indigo-300 font-semibold">
                       Rapisardi
@@ -344,7 +344,7 @@ export default function App() {
             </div>
 
             {/* Image cards grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
               {PORTFOLIO_DATA.projects.map((proj) => {
                 const gradients: Record<string, string> = {
                   'proj-viper':    'bg-gradient-to-br from-rose-950 via-[#1a0a14] to-[#030209]',

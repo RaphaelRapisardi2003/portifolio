@@ -56,8 +56,8 @@ export default function SkillMatrix({ skills, isPt }: SkillMatrixProps) {
   return (
     <div id="skills-matrix" className="w-full flex flex-col gap-6">
 
-      {/* Category Tabs */}
-      <div className="flex flex-wrap gap-1.5 border-b border-zinc-800/60 pb-4 select-none">
+      {/* Category Tabs — horizontal scroll on mobile */}
+      <div className="flex gap-1.5 border-b border-zinc-800/60 pb-4 select-none overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {categories.map((cat) => {
           const isActive = selectedCategory === cat.id;
           return (
@@ -65,7 +65,7 @@ export default function SkillMatrix({ skills, isPt }: SkillMatrixProps) {
               id={`skill-tab-${cat.id}`}
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id as any)}
-              className={`relative px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium tracking-tight transition-all duration-300 ${
+              className={`relative shrink-0 px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium tracking-tight transition-all duration-300 ${
                 isActive
                   ? 'text-zinc-100 bg-zinc-900 border border-zinc-800/80 shadow-md'
                   : 'text-zinc-500 hover:text-zinc-300 bg-transparent border border-transparent'
@@ -102,6 +102,10 @@ export default function SkillMatrix({ skills, isPt }: SkillMatrixProps) {
                 key={skill.name}
                 onMouseEnter={() => setHoveredSkill(skill.name)}
                 onMouseLeave={() => setHoveredSkill(null)}
+                onTouchEnd={(e) => {
+                  e.preventDefault();
+                  setHoveredSkill(hoveredSkill === skill.name ? null : skill.name);
+                }}
                 /* Fixed size — never grows */
                 className={`relative flex items-center justify-center rounded-xl border p-3 cursor-default select-none transition-all duration-200 aspect-square ${
                   isHovered
