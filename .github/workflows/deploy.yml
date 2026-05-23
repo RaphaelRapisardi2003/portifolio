@@ -25,6 +25,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: List dist contents (debug)
+        run: ls -la dist/ && ls -la dist/assets/
+
       - name: Deploy via FTP
         timeout-minutes: 5
         env:
@@ -33,12 +36,4 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         run: |
           sudo apt-get install -y lftp
-          lftp -u "$FTP_USER,$FTP_PASSWORD" "ftp://$FTP_HOST" <<'EOF'
-          set ssl:verify-certificate no
-          set ftp:ssl-force false
-          set ftp:passive-mode yes
-          set net:timeout 20
-          set net:max-retries 3
-          mirror -R --delete --no-perms dist/ public_html/
-          quit
-          EOF
+          lftp -u "$FTP_USER,$FTP_PASSWORD" "ftp://$FTP_HOST" -e "set ssl:verify-certificate no; set ftp:passive-mode yes; set net:timeout 20; mirror --reverse --delete --verbose --no-perms dist/ public_html/; quit"
