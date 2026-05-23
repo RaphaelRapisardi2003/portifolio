@@ -44,14 +44,8 @@ jobs:
           ftp.login(user, password)
           ftp.set_pasv(True)
 
-          print("=== FTP root:", ftp.pwd())
-          print("=== Root contents:")
-          ftp.dir()
-
-          # Navega para public_html
-          ftp.cwd('public_html')
-          print("\n=== After cd public_html:", ftp.pwd())
-          print("=== public_html contents BEFORE upload:")
+          print("=== FTP root (web root):", ftp.pwd())
+          print("=== Contents BEFORE upload:")
           ftp.dir()
 
           def ensure_dir(ftp, path):
@@ -76,7 +70,7 @@ jobs:
 
           upload_all(ftp, 'dist')
 
-          print("\n=== public_html contents AFTER upload:")
+          print("\n=== Contents AFTER upload:")
           ftp.dir()
 
           ftp.quit()
