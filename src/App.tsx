@@ -44,14 +44,13 @@ export default function App() {
   const [typewriterText, setTypewriterText] = useState('');
   const [roleIndex, setRoleIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [kpiMode, setKpiMode] = useState<'performance' | 'career' | 'contract'>('performance');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const rolesEn = [
-    "Backend Solutions Specialist",
-    "Event-Driven Queue Architect",
-    "AWS Web Cloud Specialist",
-    "Data Pipelines Developer"
+    "Full Stack Developer",
+    "AWS Services Specialist",
+    "Queue and Event Architecture Specialist",
+    "Payment Services Specialist",
   ];
 
   const rolesPt = [
@@ -299,87 +298,6 @@ export default function App() {
                 >
                   {isPt ? 'Ver Projetos & Fluxos' : 'Inspect Architecture'}
                 </button>
-              </div>
-
-              {/* Telemetry Ideas Switcher */}
-              <div className="flex flex-col gap-3 max-w-xl mt-4 select-none">
-                <div className="flex bg-white/5 border border-white/5 p-0.5 rounded-full text-[9px] font-mono leading-none w-fit">
-                  <button
-                    onClick={() => setKpiMode('performance')}
-                    className={`px-3 py-1 rounded-full transition-all cursor-pointer ${
-                      kpiMode === 'performance' ? 'text-rose-450 bg-white/5 font-bold' : 'text-zinc-500 hover:text-zinc-300'
-                    }`}
-                  >
-                    {isPt ? 'Métricas de Performance' : 'System Performance'}
-                  </button>
-                  <button
-                    onClick={() => setKpiMode('career')}
-                    className={`px-3 py-1 rounded-full transition-all cursor-pointer ${
-                      kpiMode === 'career' ? 'text-rose-455 bg-white/5 font-bold' : 'text-zinc-500 hover:text-zinc-300'
-                    }`}
-                  >
-                    {isPt ? 'Destaques de Carreira' : 'Career Highlights'}
-                  </button>
-                  <button
-                    onClick={() => setKpiMode('contract')}
-                    className={`px-3 py-1 rounded-full transition-all cursor-pointer ${
-                      kpiMode === 'contract' ? 'text-rose-455 bg-white/5 font-bold' : 'text-zinc-500 hover:text-zinc-300'
-                    }`}
-                  >
-                    {isPt ? 'Modelo de Contrato' : 'Contract Preferences'}
-                  </button>
-                </div>
-
-                <div className="grid grid-cols-3 gap-3 border border-white/5 rounded-2xl bg-[#0a0815]/40 p-4 transition-all duration-300">
-                  {kpiMode === 'performance' && (
-                    <>
-                      <div className="text-center md:text-left">
-                        <span className="text-[9px] text-zinc-500 font-mono uppercase block">{isPt ? 'Taxa Máxima' : 'Peak Ingestion'}</span>
-                        <span className="text-[13px] sm:text-[15px] font-semibold font-mono text-rose-400">15k+ ev/s</span>
-                      </div>
-                      <div className="text-center md:text-left border-l border-white/5 pl-3">
-                        <span className="text-[9px] text-zinc-500 font-mono uppercase block">{isPt ? 'Estabilidade' : 'Loss Rate'}</span>
-                        <span className="text-[13px] sm:text-[15px] font-semibold font-mono text-emerald-400">0.00%</span>
-                      </div>
-                      <div className="text-center md:text-left border-l border-white/5 pl-3">
-                        <span className="text-[9px] text-zinc-500 font-mono uppercase block">AWS Cloud</span>
-                        <span className="text-[13px] sm:text-[15px] font-semibold font-mono text-sky-400">Certified</span>
-                      </div>
-                    </>
-                  )}
-                  {kpiMode === 'career' && (
-                    <>
-                      <div className="text-center md:text-left">
-                        <span className="text-[9px] text-zinc-500 font-mono uppercase block">{isPt ? 'Experiência' : 'Experience'}</span>
-                        <span className="text-[13px] sm:text-[15px] font-semibold font-mono text-rose-400">5+ Anos</span>
-                      </div>
-                      <div className="text-center md:text-left border-l border-white/5 pl-3">
-                        <span className="text-[9px] text-zinc-500 font-mono uppercase block">{isPt ? 'Integrações' : 'Integrations'}</span>
-                        <span className="text-[13px] sm:text-[15px] font-semibold font-mono text-emerald-400">40+ APIs/DBs</span>
-                      </div>
-                      <div className="text-center md:text-left border-l border-white/5 pl-3">
-                        <span className="text-[9px] text-zinc-500 font-mono uppercase block">{isPt ? 'No Ar' : 'Deployments'}</span>
-                        <span className="text-[13px] sm:text-[15px] font-semibold font-mono text-sky-400">15+ Prod</span>
-                      </div>
-                    </>
-                  )}
-                  {kpiMode === 'contract' && (
-                    <>
-                      <div className="text-center md:text-left">
-                        <span className="text-[9px] text-zinc-500 font-mono uppercase block">{isPt ? 'Modalidade' : 'Work Style'}</span>
-                        <span className="text-[13px] sm:text-[15px] font-semibold font-mono text-rose-400">PJ / CLT</span>
-                      </div>
-                      <div className="text-center md:text-left border-l border-white/5 pl-3">
-                        <span className="text-[9px] text-zinc-500 font-mono uppercase block">{isPt ? 'Estilo' : 'Style'}</span>
-                        <span className="text-[13px] sm:text-[15px] font-semibold font-mono text-emerald-400">Full Remote</span>
-                      </div>
-                      <div className="text-center md:text-left border-l border-white/5 pl-3">
-                        <span className="text-[9px] text-zinc-500 font-mono uppercase block">{isPt ? 'Aviso Prévio' : 'Notice Period'}</span>
-                        <span className="text-[13px] sm:text-[15px] font-semibold font-mono text-sky-400">{isPt ? 'Imediato' : 'Immediate'}</span>
-                      </div>
-                    </>
-                  )}
-                </div>
               </div>
 
             </div>

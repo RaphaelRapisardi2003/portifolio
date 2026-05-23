@@ -5,7 +5,7 @@
 **Backend Developer · Event-Driven Systems · AWS Cloud · Apache Kafka**
 
 [![Deploy](https://img.shields.io/badge/Live-raphaelrapisardi.netlify.app-rose?style=flat-square&logo=netlify)](https://raphaelrapisardi.netlify.app)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Raphael_Rapisardi-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/raphael-rapisardi-a55790235)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Raphael_Rapisardi-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/raphael-rapisardi)
 [![GitHub](https://img.shields.io/badge/GitHub-RaphaelRapisardi2003-333?style=flat-square&logo=github)](https://github.com/RaphaelRapisardi2003)
 
 </div>
@@ -112,4 +112,4 @@ npm run build
 **Raphael L. Rapisardi**
 - Email: raphaelimarapisardi@gmail.com
 - WhatsApp: (11) 99799-6417
-- LinkedIn: [raphael-rapisardi-a55790235](https://www.linkedin.com/in/raphael-rapisardi-a55790235)
+- LinkedIn: [raphael-rapisardi](https://www.linkedin.com/in/raphael-rapisardi)

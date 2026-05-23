@@ -72,8 +72,8 @@ export const PORTFOLIO_DATA = {
       whatsapp: "(11) 99799-6417",
       whatsappUrl: "https://wa.me/5511997996417",
       email: "raphaelimarapisardi@gmail.com",
-      linkedin: "raphael-rapisardi-a55790235",
-      linkedinUrl: "https://www.linkedin.com/in/raphael-rapisardi-a55790235",
+      linkedin: "raphael-rapisardi",
+      linkedinUrl: "https://www.linkedin.com/in/raphael-rapisardi",
       github: "RaphaelRapisardi2003",
       githubUrl: "https://github.com/RaphaelRapisardi2003"
     }
@@ -108,11 +108,46 @@ export const PORTFOLIO_DATA = {
       descriptionPt: "Arquiteturas serverless via Lambdas, filas de mensageria com SQS, armazenamento com S3 e roteamento com API Gateway."
     },
     {
-      name: "SQS & SNS",
+      name: "React",
+      level: 88,
+      category: "backend",
+      descriptionEn: "Building component-based UIs with hooks, context, and modern React patterns for web applications.",
+      descriptionPt: "Construção de interfaces baseadas em componentes com hooks, context e padrões modernos do React."
+    },
+    {
+      name: "Next.js",
+      level: 85,
+      category: "backend",
+      descriptionEn: "Full-stack React framework with SSR, SSG, API routes, and edge-ready deployment on Vercel.",
+      descriptionPt: "Framework React fullstack com SSR, SSG, rotas de API e deploy na edge via Vercel."
+    },
+    {
+      name: "HTML5",
       level: 90,
-      category: "core",
-      descriptionEn: "Decoupling microservices using message queues, dead-letter queues, and high-throughput publish-subscribe channels.",
-      descriptionPt: "Desacoplamento de microsserviços via filas de mensagens, dead-letter queues (DLQ) e canais de pub/sub."
+      category: "backend",
+      descriptionEn: "Semantic markup, accessibility standards, and structured document modeling for web interfaces.",
+      descriptionPt: "Marcação semântica, padrões de acessibilidade e modelagem de documentos estruturados para interfaces web."
+    },
+    {
+      name: "CSS3",
+      level: 88,
+      category: "backend",
+      descriptionEn: "Responsive layouts, animations, Flexbox, Grid, and modern styling with Tailwind CSS.",
+      descriptionPt: "Layouts responsivos, animações, Flexbox, Grid e estilização moderna com Tailwind CSS."
+    },
+    {
+      name: "JavaScript",
+      level: 92,
+      category: "backend",
+      descriptionEn: "Core language for browser scripting, async programming, DOM manipulation, and modern ES6+ patterns.",
+      descriptionPt: "Linguagem base para scripts no browser, programação assíncrona, manipulação do DOM e padrões ES6+ modernos."
+    },
+    {
+      name: "NestJS",
+      level: 85,
+      category: "backend",
+      descriptionEn: "Opinionated Node.js framework for building scalable server-side applications with decorators and DI.",
+      descriptionPt: "Framework Node.js opinado para construção de aplicações server-side escaláveis com decorators e injeção de dependência."
     },
     {
       name: "N8N Automation",
@@ -120,6 +155,13 @@ export const PORTFOLIO_DATA = {
       category: "automation",
       descriptionEn: "Building low-overhead workflow integrations, automated operational alerts, and third-party API orchestrations.",
       descriptionPt: "Construção de fluxos de integração leves, alertas operacionais automáticos e orquestração de APIs."
+    },
+    {
+      name: "RabbitMQ",
+      level: 80,
+      category: "core",
+      descriptionEn: "Message broker for reliable async communication between services using AMQP queues and exchanges.",
+      descriptionPt: "Message broker para comunicação assíncrona confiável entre serviços usando filas e exchanges AMQP."
     },
     {
       name: "SQL (PostgreSQL / MySQL)",

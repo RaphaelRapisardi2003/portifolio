@@ -89,7 +89,7 @@ export default function ContactForm({ contacts, isPt }: ContactFormProps) {
                 LinkedIn
               </span>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] text-zinc-500 tracking-tight">/in/raphael-rapisardi-a55790235</span>
+                <span className="text-[10px] text-zinc-500 tracking-tight">/in/raphael-rapisardi</span>
                 <a 
                   id="linkedin-link"
                   href={contacts.linkedinUrl} 
