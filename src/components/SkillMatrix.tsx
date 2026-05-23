@@ -126,15 +126,15 @@ export default function SkillMatrix({ skills, isPt }: SkillMatrixProps) {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 4, scale: 0.97 }}
                       transition={{ duration: 0.15, ease: 'easeOut' }}
-                      className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 w-44 bg-zinc-900 border border-zinc-700/80 rounded-xl p-3 shadow-xl shadow-black/60 pointer-events-none"
+                      className="fixed sm:absolute bottom-4 sm:bottom-auto sm:top-full left-1/2 -translate-x-1/2 sm:mt-2 z-50 w-56 sm:w-44 bg-zinc-900 border border-zinc-700/80 rounded-xl p-3 shadow-xl shadow-black/60 pointer-events-none"
                     >
-                      {/* Small arrow */}
-                      <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-zinc-900 border-l border-t border-zinc-700/80 rotate-45" />
+                      {/* Small arrow — desktop only, points up to the card */}
+                      <div className="hidden sm:block absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-zinc-900 border-l border-t border-zinc-700/80 rotate-45" />
 
-                      <span className="block text-[11px] font-semibold text-zinc-200 font-mono mb-1.5 leading-tight">
+                      <span className="block text-[11px] font-semibold text-zinc-200 font-mono mb-1.5 leading-tight text-center sm:text-left">
                         {skill.name}
                       </span>
-                      <p className="text-[10px] text-zinc-500 leading-relaxed">
+                      <p className="text-[10px] text-zinc-500 leading-relaxed text-center sm:text-left">
                         {isPt ? skill.descriptionPt : skill.descriptionEn}
                       </p>
                     </motion.div>
