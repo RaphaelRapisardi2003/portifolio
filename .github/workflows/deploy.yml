@@ -38,4 +38,4 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}  # senha FTP da Hostinger
           local-dir: ./dist/                     # pasta gerada pelo Vite
           server-dir: /public_html/              # raiz do site na Hostinger
-          dangerous-clean-slate: false           # não apaga arquivos extras no servidor
+          dangerous-clean-slate: true            # limpa o servidor antes de subir (garante arquivos corretos)
