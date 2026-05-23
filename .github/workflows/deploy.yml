@@ -33,11 +33,32 @@ jobs:
           SSH_PORT: ${{ secrets.SSH_PORT }}
         run: |
           mkdir -p ~/.ssh
-          # Remove \r (Windows line endings) e escreve a chave corretamente
+
+          # Escreve a chave privada removendo \r do Windows
           printf '%s' "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/deploy_key
           echo "" >> ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
+          # Verifica se a chave é válida
+          echo "=== Verificando chave SSH ==="
+          ssh-keygen -l -f ~/.ssh/deploy_key
+
+          # Adiciona host ao known_hosts
+          echo "=== Adicionando host ao known_hosts ==="
+          ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>&1
+          echo "known_hosts entries: $(wc -l < ~/.ssh/known_hosts)"
+
+          # Testa conexão SSH antes do rsync
+          echo "=== Testando conexão SSH ==="
+          ssh -i ~/.ssh/deploy_key \
+              -p "$SSH_PORT" \
+              -o StrictHostKeyChecking=no \
+              -o ConnectTimeout=10 \
+              -v \
+              "$SSH_USER@$SSH_HOST" "echo SSH_OK" 2>&1 | tail -30
+
+          # Deploy com rsync
+          echo "=== Iniciando rsync ==="
           rsync -avz --delete \
             -e "ssh -i ~/.ssh/deploy_key -p $SSH_PORT -o StrictHostKeyChecking=no" \
             dist/ \
