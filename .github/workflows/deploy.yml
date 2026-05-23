@@ -1,0 +1,41 @@
+name: Build & Deploy to Hostinger
+
+on:
+  push:
+    branches:
+      - main   # dispara a cada push na branch main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Baixa o código do repositório
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Configura Node.js (versão LTS)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # 3. Instala dependências de forma limpa e determinística
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Gera o build de produção (pasta dist/)
+      - name: Build
+        run: npm run build
+
+      # 5. Envia o conteúdo de dist/ para a Hostinger via FTP
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}        # ex: ftp.seudominio.com
+          username: ${{ secrets.FTP_USER }}      # usuário FTP da Hostinger
+          password: ${{ secrets.FTP_PASSWORD }}  # senha FTP da Hostinger
+          local-dir: ./dist/                     # pasta gerada pelo Vite
+          server-dir: /public_html/              # raiz do site na Hostinger
+          dangerous-clean-slate: false           # não apaga arquivos extras no servidor

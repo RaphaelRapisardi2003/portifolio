@@ -168,3 +168,85 @@ body {
   box-shadow: 0 0 25px rgba(139, 92, 246, 0.15);
 }
 
+/* ============================================================
+   LIGHT MODE  (toggled via .light-mode class on root div)
+   ============================================================ */
+
+/* 1. Base */
+.light-mode {
+  background-color: #f0edff;
+  color: #18181b;
+}
+
+/* 2. Remove animated star layers */
+.light-mode.space-stars {
+  background-image: none;
+  animation: none;
+}
+
+/* 3. Nebula orbs — keep but very faint */
+.light-mode .nebula-glow-1,
+.light-mode .nebula-glow-2 {
+  opacity: 0.2;
+}
+
+/* 4. Scrollbar */
+.light-mode::-webkit-scrollbar-track { background: #e8e3ff; }
+.light-mode::-webkit-scrollbar-thumb { background: #c4b5f8; }
+.light-mode::-webkit-scrollbar-thumb:hover { background: #a78bfa; }
+
+/* 5. Navbar / glass elements */
+.light-mode .glass-capsule {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(0, 0, 0, 0.07);
+  box-shadow: 0 4px 24px rgba(80, 60, 180, 0.07);
+}
+
+/* 6. Text */
+.light-mode .text-zinc-100 { color: #18181b; }
+.light-mode .text-zinc-200 { color: #27272a; }
+.light-mode .text-zinc-250 { color: #3f3f46; }
+.light-mode .text-zinc-300 { color: #3f3f46; }
+.light-mode .text-zinc-400 { color: #52525b; }
+.light-mode .text-zinc-450 { color: #71717a; }
+.light-mode .text-zinc-500 { color: #71717a; }
+.light-mode .text-zinc-650 { color: #a1a1aa; }
+
+/* 7. Hover text */
+.light-mode .hover\:text-white:hover    { color: #18181b; }
+.light-mode .hover\:text-zinc-200:hover { color: #27272a; }
+.light-mode .hover\:text-zinc-250:hover { color: #3f3f46; }
+.light-mode .hover\:text-zinc-300:hover { color: #3f3f46; }
+
+/* 8. Backgrounds */
+.light-mode .bg-white\/5  { background-color: rgba(0, 0, 0, 0.04); }
+.light-mode .bg-white\/10 { background-color: rgba(0, 0, 0, 0.07); }
+.light-mode .bg-zinc-950\/20  { background-color: rgba(255, 255, 255, 0.6);  }
+.light-mode .bg-zinc-900\/60  { background-color: rgba(255, 255, 255, 0.9);  }
+.light-mode .bg-zinc-900      { background-color: #ffffff; color: #18181b;   }
+.light-mode .bg-\[\#0a0815\]\/40 { background-color: rgba(255, 255, 255, 0.6);  }
+.light-mode .bg-\[\#080612\]\/30 { background-color: rgba(255, 255, 255, 0.6);  }
+.light-mode .bg-\[\#0a0712\]\/50 { background-color: rgba(255, 255, 255, 0.75); }
+.light-mode .bg-\[\#0a0814\]     { background-color: #f5f3ff; }   /* modal body    */
+.light-mode .bg-\[\#03010b\]     { background-color: #e9e4ff; }   /* footer        */
+.light-mode .bg-black\/50        { background-color: rgba(255, 255, 255, 0.65); }
+.light-mode .bg-black\/75        { background-color: rgba(0, 0, 0, 0.45);       }
+.light-mode .bg-black\/80        { background-color: rgba(255, 255, 255, 0.9);  }
+
+/* 9. Hover backgrounds */
+.light-mode .hover\:bg-white\/5:hover  { background-color: rgba(0, 0, 0, 0.04); }
+.light-mode .hover\:bg-white\/10:hover { background-color: rgba(0, 0, 0, 0.07); }
+.light-mode .hover\:bg-black\/80:hover { background-color: rgba(0, 0, 0, 0.08); }
+
+/* 10. Borders */
+.light-mode .border-white\/5     { border-color: rgba(0, 0, 0, 0.08); }
+.light-mode .border-white\/8     { border-color: rgba(0, 0, 0, 0.10); }
+.light-mode .border-white\/10    { border-color: rgba(0, 0, 0, 0.10); }
+.light-mode .border-white\/15    { border-color: rgba(0, 0, 0, 0.15); }
+.light-mode .border-white\/20    { border-color: rgba(0, 0, 0, 0.20); }
+.light-mode .border-zinc-800\/50 { border-color: rgba(0, 0, 0, 0.10); }
+.light-mode .border-zinc-800\/60 { border-color: rgba(0, 0, 0, 0.10); }
+.light-mode .border-zinc-800\/80 { border-color: rgba(0, 0, 0, 0.15); }
+.light-mode .border-zinc-700\/80 { border-color: rgba(0, 0, 0, 0.15); }
+.light-mode .border-zinc-600     { border-color: rgba(0, 0, 0, 0.25); }
+

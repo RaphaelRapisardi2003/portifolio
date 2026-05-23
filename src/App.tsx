@@ -34,11 +34,14 @@ import {
   MapPin,
   ChevronRight,
   Menu,
-  X
+  X,
+  Sun,
+  Moon,
 } from 'lucide-react';
 
 export default function App() {
   const [isPt, setIsPt] = useState(false);
+  const [isDark, setIsDark] = useState(true);
   const [modalProject, setModalProject] = useState<Project | null>(null);
   const [currentSection, setCurrentSection] = useState('about');
   const [typewriterText, setTypewriterText] = useState('');
@@ -118,7 +121,7 @@ export default function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#030209] text-zinc-100 selection:bg-rose-500/30 selection:text-white font-sans overflow-x-hidden flex flex-col justify-between relative space-stars">
+    <div className={`min-h-screen bg-[#030209] text-zinc-100 selection:bg-rose-500/30 selection:text-white font-sans overflow-x-hidden flex flex-col justify-between relative space-stars${!isDark ? ' light-mode' : ''}`}>
       
       {/* Background Orbs Gimmick - Premium Ambient Lights */}
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-purple-500/5 rounded-full blur-[140px] pointer-events-none z-0 nebula-glow-1" />
@@ -189,6 +192,17 @@ export default function App() {
                 PT
               </button>
             </div>
+
+            {/* Light / Dark toggle */}
+            <button
+              onClick={() => setIsDark(prev => !prev)}
+              className="p-1.5 rounded-full bg-white/5 border border-white/5 text-zinc-400 hover:text-white hover:bg-white/10 transition-all cursor-pointer"
+              aria-label="Toggle theme"
+            >
+              {isDark
+                ? <Sun  className="w-3.5 h-3.5" />
+                : <Moon className="w-3.5 h-3.5" />}
+            </button>
 
             {/* Hamburger — mobile only */}
             <button
