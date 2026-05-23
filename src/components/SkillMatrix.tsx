@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Skill } from '../types';
 
@@ -38,6 +39,27 @@ export default function SkillMatrix({ skills, isPt }: SkillMatrixProps) {
     'all' | 'core' | 'backend' | 'cloud' | 'automation' | 'databases'
   >('all');
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+  const [tooltipPos, setTooltipPos] = useState<{ x: number; y: number; arrowLeft: number }>({ x: 0, y: 0, arrowLeft: 88 });
+
+  // Fecha o tooltip ao rolar a página
+  useEffect(() => {
+    const close = () => setHoveredSkill(null);
+    window.addEventListener('scroll', close, { passive: true });
+    return () => window.removeEventListener('scroll', close);
+  }, []);
+
+  const TOOLTIP_W = 176; // w-44 = 11rem = 176px
+
+  const calcPos = (el: HTMLElement) => {
+    const rect = el.getBoundingClientRect();
+    const cardCenterX = rect.left + rect.width / 2;
+    // Clamp tooltip para não sair da tela
+    const x = Math.max(TOOLTIP_W / 2 + 8, Math.min(cardCenterX, window.innerWidth - TOOLTIP_W / 2 - 8));
+    // Setinha aponta sempre para o centro do card, independente do clamp
+    const tooltipLeftEdge = x - TOOLTIP_W / 2;
+    const arrowLeft = Math.max(12, Math.min(cardCenterX - tooltipLeftEdge, TOOLTIP_W - 12));
+    return { x, y: rect.bottom + 8, arrowLeft };
+  };
 
   const categories = [
     { id: 'all',        labelEn: 'All Technologies',    labelPt: 'Todas' },
@@ -57,7 +79,7 @@ export default function SkillMatrix({ skills, isPt }: SkillMatrixProps) {
     <div id="skills-matrix" className="w-full flex flex-col gap-6">
 
       {/* Category Tabs — horizontal scroll on mobile */}
-      <div className="flex gap-1.5 border-b border-zinc-800/60 pb-4 select-none overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="flex flex-wrap sm:flex-nowrap gap-1.5 border-b border-zinc-800/60 pb-4 select-none sm:overflow-x-auto sm:[-ms-overflow-style:none] sm:[scrollbar-width:none] sm:[&::-webkit-scrollbar]:hidden">
         {categories.map((cat) => {
           const isActive = selectedCategory === cat.id;
           return (
@@ -65,7 +87,7 @@ export default function SkillMatrix({ skills, isPt }: SkillMatrixProps) {
               id={`skill-tab-${cat.id}`}
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id as any)}
-              className={`relative shrink-0 px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium tracking-tight transition-all duration-300 ${
+              className={`relative shrink-0 px-3 py-1.5 rounded-lg text-[11px] sm:text-xs font-mono font-medium tracking-tight transition-all duration-300 ${
                 isActive
                   ? 'text-zinc-100 bg-zinc-900 border border-zinc-800/80 shadow-md'
                   : 'text-zinc-500 hover:text-zinc-300 bg-transparent border border-transparent'
@@ -100,11 +122,19 @@ export default function SkillMatrix({ skills, isPt }: SkillMatrixProps) {
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.18, delay: idx * 0.03 }}
                 key={skill.name}
-                onMouseEnter={() => setHoveredSkill(skill.name)}
+                onMouseEnter={(e) => {
+                  setTooltipPos(calcPos(e.currentTarget));
+                  setHoveredSkill(skill.name);
+                }}
                 onMouseLeave={() => setHoveredSkill(null)}
                 onTouchEnd={(e) => {
                   e.preventDefault();
-                  setHoveredSkill(hoveredSkill === skill.name ? null : skill.name);
+                  if (hoveredSkill === skill.name) {
+                    setHoveredSkill(null);
+                  } else {
+                    setTooltipPos(calcPos(e.currentTarget));
+                    setHoveredSkill(skill.name);
+                  }
                 }}
                 /* Fixed size — never grows */
                 className={`relative flex items-center justify-center rounded-xl border p-3 cursor-default select-none transition-all duration-200 aspect-square ${
@@ -121,29 +151,33 @@ export default function SkillMatrix({ skills, isPt }: SkillMatrixProps) {
                   draggable={false}
                 />
 
-                {/* Floating tooltip — absolute, does NOT affect grid */}
-                <AnimatePresence>
-                  {isHovered && (
+                {/* Tooltip rendered via portal — escapa o overflow-x-hidden do pai */}
+                {isHovered && createPortal(
+                  <AnimatePresence>
                     <motion.div
-                      key="tooltip"
+                      key={`tooltip-${skill.name}`}
                       initial={{ opacity: 0, y: 4, scale: 0.97 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 4, scale: 0.97 }}
                       transition={{ duration: 0.15, ease: 'easeOut' }}
-                      className="fixed sm:absolute bottom-4 sm:bottom-auto sm:top-full left-1/2 -translate-x-1/2 sm:mt-2 z-50 w-56 sm:w-44 bg-zinc-900 border border-zinc-700/80 rounded-xl p-3 shadow-xl shadow-black/60 pointer-events-none"
+                      style={{ top: tooltipPos.y, left: tooltipPos.x }}
+                      className="fixed -translate-x-1/2 z-[200] w-44 bg-zinc-900 border border-zinc-700/80 rounded-xl p-3 shadow-xl shadow-black/60 pointer-events-none"
                     >
-                      {/* Small arrow — desktop only, points up to the card */}
-                      <div className="hidden sm:block absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-zinc-900 border-l border-t border-zinc-700/80 rotate-45" />
-
-                      <span className="block text-[11px] font-semibold text-zinc-200 font-mono mb-1.5 leading-tight text-center sm:text-left">
+                      {/* Setinha aponta para o centro exato do card */}
+                      <div
+                        style={{ left: tooltipPos.arrowLeft }}
+                        className="absolute -top-1.5 -translate-x-1/2 w-3 h-3 bg-zinc-900 border-l border-t border-zinc-700/80 rotate-45"
+                      />
+                      <span className="block text-[11px] font-semibold text-zinc-200 font-mono mb-1.5 leading-tight">
                         {skill.name}
                       </span>
-                      <p className="text-[10px] text-zinc-500 leading-relaxed text-center sm:text-left">
+                      <p className="text-[10px] text-zinc-500 leading-relaxed">
                         {isPt ? skill.descriptionPt : skill.descriptionEn}
                       </p>
                     </motion.div>
-                  )}
-                </AnimatePresence>
+                  </AnimatePresence>,
+                  document.body
+                )}
               </motion.div>
             );
           })}
