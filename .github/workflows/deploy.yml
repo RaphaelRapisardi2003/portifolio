@@ -25,54 +25,14 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy via FTP (Python)
-        timeout-minutes: 10
-        env:
-          FTP_HOST: ${{ secrets.FTP_HOST }}
-          FTP_USER: ${{ secrets.FTP_USER }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      - name: Deploy via SSH (rsync)
         run: |
-          python3 << 'PYEOF'
-          import ftplib, os, sys
-
-          host     = os.environ['FTP_HOST']
-          user     = os.environ['FTP_USER']
-          password = os.environ['FTP_PASSWORD']
-
-          ftp = ftplib.FTP()
-          ftp.connect(host, 21, timeout=30)
-          ftp.login(user, password)
-          ftp.set_pasv(True)
-
-          print("=== FTP root (web root):", ftp.pwd())
-          print("=== Contents BEFORE upload:")
-          ftp.dir()
-
-          def ensure_dir(ftp, path):
-              try:
-                  ftp.mkd(path)
-              except ftplib.error_perm:
-                  pass  # already exists
-
-          def upload_all(ftp, local_dir):
-              for root, dirs, files in os.walk(local_dir):
-                  # Create remote subdirectories
-                  rel_root = os.path.relpath(root, local_dir).replace('\\', '/')
-                  if rel_root != '.':
-                      ensure_dir(ftp, rel_root)
-
-                  for filename in files:
-                      local_path  = os.path.join(root, filename)
-                      remote_path = (rel_root + '/' + filename if rel_root != '.' else filename)
-                      print(f"  Uploading: {remote_path}")
-                      with open(local_path, 'rb') as f:
-                          ftp.storbinary(f'STOR {remote_path}', f)
-
-          upload_all(ftp, 'dist')
-
-          print("\n=== Contents AFTER upload:")
-          ftp.dir()
-
-          ftp.quit()
-          print("\n=== Deploy complete!")
-          PYEOF
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts 2>/dev/null
+          rsync -avz --delete \
+            -e "ssh -i ~/.ssh/deploy_key -p ${{ secrets.SSH_PORT }} -o StrictHostKeyChecking=no" \
+            dist/ \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:public_html/
+          echo "=== Deploy via rsync concluído! ==="
