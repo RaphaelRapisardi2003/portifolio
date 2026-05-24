@@ -112,13 +112,10 @@ npm run build
 # git push origin main  →  GitHub Actions faz o rsync para a Hostinger
 ```
 
-**Destino no servidor:** `domains/raphaelrapisardi.com/public_html/`
-
 ---
 
 ## Contato
 
 **Raphael L. Rapisardi**
 - Email: raphaelimarapisardi@gmail.com
-- WhatsApp: (11) 99799-6417
 - LinkedIn: [raphael-rapisardi](https://www.linkedin.com/in/raphael-rapisardi)
