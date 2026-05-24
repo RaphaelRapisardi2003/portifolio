@@ -4,7 +4,7 @@
 
 **Backend Developer · Event-Driven Systems · AWS Cloud · Apache Kafka**
 
-[![Deploy](https://img.shields.io/badge/Live-raphaelrapisardi.netlify.app-rose?style=flat-square&logo=netlify)](https://raphaelrapisardi.netlify.app)
+[![Live](https://img.shields.io/badge/Live-raphaelrapisardi.com-rose?style=flat-square&logo=hostinger)](https://raphaelrapisardi.com)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Raphael_Rapisardi-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/raphael-rapisardi)
 [![GitHub](https://img.shields.io/badge/GitHub-RaphaelRapisardi2003-333?style=flat-square&logo=github)](https://github.com/RaphaelRapisardi2003)
 
@@ -15,6 +15,8 @@
 ## Sobre o Projeto
 
 Portfolio pessoal desenvolvido com **React + TypeScript + Vite**, com design dark inspirado em interfaces de sistemas técnicos. Inclui animações com Framer Motion, fundo de estrelas animado com parallax em 3 camadas, navbar fixa responsiva com menu hambúrguer, e seção de projetos com modal de detalhes.
+
+🌐 **Acesse em:** [raphaelrapisardi.com](https://raphaelrapisardi.com)
 
 ---
 
@@ -97,13 +99,20 @@ imageUrl: "/screenshots/luciobot.png",
 
 ---
 
-## Deploy (Netlify)
+## Deploy (Hostinger)
+
+O site é hospedado na **Hostinger** e publicado via **GitHub Actions** com rsync por SSH a cada push na branch `main`.
 
 ```bash
+# Build local
 npm run build
 # pasta gerada: dist/
-# faça upload da pasta dist/ no Netlify ou conecte o repositório
+
+# O deploy é automático via CI/CD:
+# git push origin main  →  GitHub Actions faz o rsync para a Hostinger
 ```
+
+**Destino no servidor:** `domains/raphaelrapisardi.com/public_html/`
 
 ---
 
